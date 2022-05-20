@@ -1,11 +1,9 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import Controller from '../interfaces/controller.interface';
-import authMiddleware from '../middleware/auth.middleware';
-import UserNotFoundException from '../exceptions/UserNotFoundException';
-import client from '../prismaClient';
+
 
 class HealthCheckController implements Controller {
-  public path = '/config';
+  public path = '/health-check';
   public router = Router();
 
   constructor() {
@@ -19,10 +17,7 @@ class HealthCheckController implements Controller {
   private healthCheck = async (request: Request, response: Response, next: NextFunction) => {
 
     response.send({
-      hostname: process.env.HOSTNAME || 'NONE',
-      env: process.env.ENV,
-      apiVersion: process.env.API_VERSION,
-      timezone: process.env.TZ || 'NONE'
+      'status' : 'good'
     });
 
   }
